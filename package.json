@@ -1,0 +1,15 @@
+{
+  "name": "optimal-split",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "ethers": "5.7.2"
+  }
+}
