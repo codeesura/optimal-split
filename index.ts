@@ -69,5 +69,12 @@ const optimalSplitResult = optimalSplit(dexA, dexB, inputAmount);
 const totalOutput = calculateWethPrice(dexA, optimalSplitResult.dexAAmount)
     .add(calculateWethPrice(dexB, optimalSplitResult.dexBAmount));
 
+const dexAOnlyOutput = calculateWethPrice(dexA, inputAmount);
+const dexBOnlyOutput = calculateWethPrice(dexB, inputAmount);
+
 console.log(`Optimal split: ${ethers.utils.formatEther(optimalSplitResult.dexAAmount)} WETH on DEX-A, ${ethers.utils.formatEther(optimalSplitResult.dexBAmount)} WETH on DEX-B`);
 console.log(`Total USDC output: ${formatUSDC(totalOutput)} USDC`);
+console.log(`\nComparison with single DEX trades:`);
+console.log(`If all 1 WETH traded on DEX-A: ${formatUSDC(dexAOnlyOutput)} USDC`);
+console.log(`If all 1 WETH traded on DEX-B: ${formatUSDC(dexBOnlyOutput)} USDC`);
+console.log(`Profit from optimal split vs. best single DEX: ${formatUSDC(totalOutput.sub(dexAOnlyOutput.gt(dexBOnlyOutput) ? dexAOnlyOutput : dexBOnlyOutput))} USDC`);
