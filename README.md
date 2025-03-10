@@ -15,40 +15,32 @@ The goal is to sell 1 WETH to get the maximum possible amount of USDC. While it 
 
 DEXs typically use a constant product AMM principle, expressed as:
 
-```
-x × y = k
-```
+$$x \times y = k$$
 
 Where:
-- `x`: Amount of WETH in the pool
-- `y`: Amount of USDC in the pool
-- `k`: Constant value (liquidity constant)
+- $x$: Amount of WETH in the pool
+- $y$: Amount of USDC in the pool
+- $k$: Constant value (liquidity constant)
 
 When selling WETH, the amount of USDC received is calculated as:
 
-```
-USDC received = y - (k / (x + added WETH))
-```
+$$\text{USDC received} = y - \frac{k}{x + \text{added WETH}}$$
 
 ## Optimal Split Calculation
 
 To maximize the total USDC received, we need to find the optimal way to split our 1 WETH between the two DEXs. The total output function is:
 
-```
-F(w) = (y_A - (k_A / (x_A + w))) + (y_B - (k_B / (x_B + (1 - w))))
-```
+$$F(w) = \left(y_A - \frac{k_A}{x_A + w}\right) + \left(y_B - \frac{k_B}{x_B + (1 - w)}\right)$$
 
 Where:
-- `w`: Amount of WETH to send to DEX-A
-- `1-w`: Amount of WETH to send to DEX-B
+- $w$: Amount of WETH to send to DEX-A
+- $1-w$: Amount of WETH to send to DEX-B
 
 ## Finding the Maximum Point
 
 To find the maximum point, we take the derivative of the function and set it to zero:
 
-```
-dF/dw = (k_A / (x_A + w)²) - (k_B / (x_B + (1 - w))²) = 0
-```
+$$\frac{dF}{dw} = \frac{k_A}{(x_A + w)^2} - \frac{k_B}{(x_B + (1 - w))^2} = 0$$
 
 This project uses a binary search algorithm to find this optimal point numerically.
 
